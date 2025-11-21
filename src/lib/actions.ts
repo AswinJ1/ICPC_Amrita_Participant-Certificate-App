@@ -23,13 +23,18 @@ async function getParticipants(): Promise<any[]> {
   }
   
   // Load fresh data
-  console.log("Loading participants from Excel");
-  const filePath = path.resolve(process.cwd(), "data", "trainers.xlsx");
-  const fileBuffer = await fs.readFile(filePath);
-  const workbook = XLSX.read(fileBuffer, { type: "buffer" });
+  console.log("Loading participants from CSV");
+  const filePath = path.resolve(process.cwd(), "data", "data.csv");
+  const fileBuffer = await fs.readFile(filePath, 'utf-8'); // Read as text for CSV
+  
+  // Parse CSV properly
+  const workbook = XLSX.read(fileBuffer, { type: "string" }); // Changed from "buffer" to "string"
   const sheet = workbook.Sheets[workbook.SheetNames[0]];
   participantsCache = XLSX.utils.sheet_to_json(sheet);
   cacheTimestamp = now;
+  
+  console.log("Loaded participants:", participantsCache.length);
+  console.log("Sample participant:", participantsCache[0]); // Debug log
   
   return participantsCache;
 }
@@ -163,7 +168,8 @@ async function verifyParticipant(name: string, teamId: number, email: string): P
     const normalizeEmail = (str: string) => str.trim().toLowerCase();
     
     const participant = participants.find((p: any) => {
-      const matchName = normalizeName(p.Name?.toString() || '') === normalizeName(name);
+      // Use lowercase property names to match CSV columns
+      const matchName = normalizeName(p.name?.toString() || '') === normalizeName(name);
       const matchEmail = normalizeEmail(p.email?.toString() || '') === normalizeEmail(email);
       const matchTeamId = parseInt(p.teamId?.toString() || '0') === teamId;
       
@@ -172,10 +178,10 @@ async function verifyParticipant(name: string, teamId: number, email: string): P
       
       if (isMatch) {
         console.log("✅ Participant verified:", { 
-          name: p.Name, 
+          name: p.name, 
           email: p.email, 
           teamId: p.teamId,
-          teamName: p.TeamName 
+          teamName: p.teamName 
         });
       }
       
@@ -188,7 +194,7 @@ async function verifyParticipant(name: string, teamId: number, email: string): P
     }
 
     return {
-      teamName: participant.TeamName?.toString() || 'Team'
+      teamName: participant.teamName?.toString() || 'Team'
     };
   } catch (error) {
     console.error("Error verifying participant:", error);
