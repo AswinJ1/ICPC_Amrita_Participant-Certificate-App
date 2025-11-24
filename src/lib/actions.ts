@@ -114,7 +114,7 @@ export async function verifyAndGenerateCertificate(data: {
     const nameConfig = {
       text: formattedName,
       fontSize: nameFontSize,
-      y: height * 0.57,
+      y: height * 0.58,
       xOffset: 0
     };
 
@@ -122,8 +122,8 @@ export async function verifyAndGenerateCertificate(data: {
     const teamNameConfig = {
       text: participantInfo.teamName,
       fontSize: 15,
-      y: height * 0.51,
-      xOffset: -74
+      y: height * 0.53,
+      xOffset: 0
     };
 
     const drawCenteredText = (config: { text: string, fontSize: number, y: number, xOffset?: number }) => {
