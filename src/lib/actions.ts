@@ -61,7 +61,7 @@ export async function verifyAndGenerateCertificate(data: {
     console.log("Verifying participant:", data);
 
     // Remove redundant file access checks - only check once
-    const templatePath = path.resolve(process.cwd(), "public", "certificate-template.pdf");
+    const templatePath = path.resolve(process.cwd(), "public", "certificate-template_4.pdf");
     const fontPath = path.resolve(process.cwd(), 'public', 'fonts', 'Acumin-RPro.otf');
 
     // Verify participant using cached data
@@ -114,7 +114,7 @@ export async function verifyAndGenerateCertificate(data: {
     const nameConfig = {
       text: formattedName,
       fontSize: nameFontSize,
-      y: height * 0.58,
+      y: height * 0.59,
       xOffset: 0
     };
 
