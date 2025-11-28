@@ -145,6 +145,36 @@ export async function verifyAndGenerateCertificate(data: {
     const modifiedPdfBytes = await pdfDoc.save();
     const base64PDF = Buffer.from(modifiedPdfBytes).toString('base64');
 
+    // **ADD THIS: Record the download in database**
+    try {
+      await prisma.downloadCount.upsert({
+        where: {
+          email_name_teamId: {
+            email: data.email,
+            name: data.name,
+            teamId: data.teamId.toString()
+          }
+        },
+        update: {
+          count: {
+            increment: 1
+          },
+          updatedAt: new Date()
+        },
+        create: {
+          name: data.name,
+          email: data.email,
+          teamId: data.teamId.toString(),
+          teamName: participantInfo.teamName,
+          count: 1
+        }
+      });
+      console.log("✅ Download recorded for:", data.name);
+    } catch (dbError) {
+      console.error("❌ Failed to record download:", dbError);
+      // Continue anyway - don't fail certificate generation
+    }
+
     return {
       success: true,
       message: "Certificate generated successfully",
