@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     console.log("📊 Loading stats...");
     
     // Load all participants from CSV
-    const filePath = path.resolve(process.cwd(), "data", "data.csv");
+    const filePath = path.resolve(process.cwd(), "data", "participants.csv");
     const fileBuffer = await fs.readFile(filePath, 'utf-8');
     const workbook = XLSX.read(fileBuffer, { type: "string" });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
