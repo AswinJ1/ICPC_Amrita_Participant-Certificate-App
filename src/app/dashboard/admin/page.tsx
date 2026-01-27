@@ -127,7 +127,7 @@ export default function AdminDashboard() {
 
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-colors"
+                className="inline-flex items-center gap-2  border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-colors"
               >
                 <span className="hidden sm:inline">Logout</span>
                 <svg
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* KPI row */}
         <section className="grid grid-cols-1 md:grid-cols-4 gap-5">
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+          <div className="bg-white p-5  shadow-sm border border-slate-100">
             <p className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
               Total Participants
             </p>
@@ -170,7 +170,7 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+          <div className="bg-white p-5  shadow-sm border border-slate-100">
             <p className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
               Verified
             </p>
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+          <div className="bg-white p-5  shadow-sm border border-slate-100">
             <p className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
               Total Downloads
             </p>
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
         </section>
 
         {/* Table */}
-        <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+        <section className="bg-white  shadow-sm border border-slate-100 p-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-slate-900">
               Participants

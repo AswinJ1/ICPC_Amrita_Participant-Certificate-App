@@ -69,7 +69,7 @@ export default function ParticipantsTable() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+      <div className="bg-white  border border-slate-200 shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-slate-900">
             Participants
@@ -80,7 +80,7 @@ export default function ParticipantsTable() {
         </div>
         <div className="flex items-center justify-center h-40">
           <div className="flex items-center gap-3 text-slate-600">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />
+            <div className="animate-spin h-8 w-8 border-b-2 border-indigo-600" />
             <span className="text-sm">Loading participants...</span>
           </div>
         </div>
@@ -90,13 +90,13 @@ export default function ParticipantsTable() {
 
   if (error) {
     return (
-      <div className="bg-white rounded-2xl border border-rose-100 shadow-sm p-6">
+      <div className="bg-white border border-rose-100 shadow-sm p-6">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-slate-900">
             Participants
           </h2>
         </div>
-        <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+        <div className=" border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
           <p>{error}</p>
           <button
             onClick={() => window.location.reload()}
@@ -110,7 +110,7 @@ export default function ParticipantsTable() {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
+    <div className="bg-white  border border-slate-200 shadow-sm">
       {/* Header */}
       <div className="px-6 pt-5 pb-4 border-b border-slate-100 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
@@ -138,7 +138,7 @@ export default function ParticipantsTable() {
 
           <div className="relative w-full md:w-64">
             <input
-              className="w-full rounded-full border border-slate-200 bg-slate-50/60 px-9 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100"
+              className="w-full  border border-slate-200 bg-slate-50/60 px-9 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100"
               placeholder="Search name, email or team..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -256,7 +256,7 @@ export default function ParticipantsTable() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+              className="inline-flex items-center  border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
             >
               Prev
             </button>
@@ -271,7 +271,7 @@ export default function ParticipantsTable() {
                 setPage((p) => Math.min(totalPages, p + 1))
               }
               disabled={page === totalPages}
-              className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+              className="inline-flex items-center  border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
             >
               Next
             </button>
