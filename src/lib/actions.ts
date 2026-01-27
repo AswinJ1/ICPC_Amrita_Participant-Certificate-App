@@ -24,7 +24,7 @@ async function getParticipants(): Promise<any[]> {
   
   // Load fresh data
   console.log("Loading participants from CSV");
-  const filePath = path.resolve(process.cwd(), "data", "data.csv");
+  const filePath = path.resolve(process.cwd(), "data", "participants.csv");
   const fileBuffer = await fs.readFile(filePath, 'utf-8'); // Read as text for CSV
   
   // Parse CSV properly
@@ -61,7 +61,7 @@ export async function verifyAndGenerateCertificate(data: {
     console.log("Verifying participant:", data);
 
     // Remove redundant file access checks - only check once
-    const templatePath = path.resolve(process.cwd(), "public", "certificate-template_4.pdf");
+    const templatePath = path.resolve(process.cwd(), "public", "Participation certificate.pdf");
     const fontPath = path.resolve(process.cwd(), 'public', 'fonts', 'Acumin-RPro.otf');
 
     // Verify participant using cached data
@@ -119,28 +119,30 @@ export async function verifyAndGenerateCertificate(data: {
     };
 
     // Team name configuration
-    const teamNameConfig = {
-      text: participantInfo.teamName,
-      fontSize: 15,
-      y: height * 0.53,
-      xOffset: 0
-    };
+    // const teamNameConfig = {
+    //   text: participantInfo.teamName,
+    //   fontSize: 21,
+    //   y: height * 0.53,
+    //   xOffset: 0,
+    //   font: font // Use bold font for team name
+    // };
 
-    const drawCenteredText = (config: { text: string, fontSize: number, y: number, xOffset?: number }) => {
-      const textWidth = font.widthOfTextAtSize(config.text, config.fontSize);
+    const drawCenteredText = (config: { text: string, fontSize: number, y: number, xOffset?: number, font?: any }) => {
+      const textFont = config.font || font; // Use provided font or default
+      const textWidth = textFont.widthOfTextAtSize(config.text, config.fontSize);
       const x = (width - textWidth) / 2 + (config.xOffset || 0);
       
       page.drawText(config.text, {
         x,
         y: config.y,
         size: config.fontSize,
-        font,
+        font: textFont,
         color: rgb(0, 0, 0)
       });
     };
 
     drawCenteredText(nameConfig);
-    drawCenteredText(teamNameConfig);
+    // drawCenteredText(teamNameConfig);
 
     const modifiedPdfBytes = await pdfDoc.save();
     const base64PDF = Buffer.from(modifiedPdfBytes).toString('base64');
