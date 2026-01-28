@@ -41,7 +41,7 @@ async function getParticipants(): Promise<any[]> {
 
 const formSchema = z.object({
   name: z.string().min(1, "Full name is required"),
-  teamId: z.number().min(1, "Team ID is required"),
+  // teamId: z.number().min(1, "Team ID is required"),
   email: z.string().email("Invalid email address"),
 
 })
@@ -54,7 +54,7 @@ type ActionResponse = {
 
 export async function verifyAndGenerateCertificate(data: {
   name: string;
-  teamId: number;
+  // teamId: number;
   email: string;
 }): Promise<ActionResponse> {
   try {
@@ -67,7 +67,7 @@ export async function verifyAndGenerateCertificate(data: {
     // Verify participant using cached data
     const participantInfo = await verifyParticipant(
       data.name,
-      data.teamId,
+      // data.teamId,
       data.email
     );
     
@@ -151,10 +151,10 @@ export async function verifyAndGenerateCertificate(data: {
     try {
       await prisma.downloadCount.upsert({
         where: {
-          email_name_teamId: {
+          email_name: {
             email: data.email,
             name: data.name,
-            teamId: data.teamId.toString()
+            // teamId: data.teamId.toString()
           }
         },
         update: {
@@ -166,7 +166,7 @@ export async function verifyAndGenerateCertificate(data: {
         create: {
           name: data.name,
           email: data.email,
-          teamId: data.teamId.toString(),
+          // teamId: data.teamId.toString(),
           teamName: participantInfo.teamName,
           count: 1
         }
@@ -192,7 +192,7 @@ export async function verifyAndGenerateCertificate(data: {
   }
 }
 
-async function verifyParticipant(name: string, teamId: number, email: string): Promise<{ teamName: string } | null> {
+async function verifyParticipant(name: string, email: string): Promise<{ teamName: string } | null> {
   try {
     const participants = await getParticipants();
     
@@ -203,16 +203,16 @@ async function verifyParticipant(name: string, teamId: number, email: string): P
       // Use lowercase property names to match CSV columns
       const matchName = normalizeName(p.name?.toString() || '') === normalizeName(name);
       const matchEmail = normalizeEmail(p.email?.toString() || '') === normalizeEmail(email);
-      const matchTeamId = parseInt(p.teamId?.toString() || '0') === teamId;
+      // const matchTeamId = parseInt(p.teamId?.toString() || '0') === teamId;
       
       // All three must match
-      const isMatch = matchName && matchEmail && matchTeamId;
+      const isMatch = matchName && matchEmail;
       
       if (isMatch) {
         console.log("✅ Participant verified:", { 
           name: p.name, 
           email: p.email, 
-          teamId: p.teamId,
+          // teamId: p.teamId,
           teamName: p.teamName 
         });
       }
@@ -221,7 +221,7 @@ async function verifyParticipant(name: string, teamId: number, email: string): P
     });
 
     if (!participant) {
-      console.log("❌ No matching participant found for:", { name, email, teamId });
+      console.log("❌ No matching participant found for:", { name, email });
       return null;
     }
 

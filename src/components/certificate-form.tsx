@@ -17,9 +17,6 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
-  teamId: z.number().min(1, {
-    message: "Team ID is required.",
-  }),
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
@@ -34,7 +31,7 @@ export function CertificateForm() {
     defaultValues: {
       name: "",
       email: "",
-      teamId: 0,
+
     },
   })
 
@@ -45,7 +42,6 @@ export function CertificateForm() {
       // Ensure teamId is a number
       const payload = {
         ...values,
-        teamId: Number(values.teamId)
       };
       
       console.log("Submitting form with values:", payload);
@@ -150,7 +146,7 @@ export function CertificateForm() {
           )}
         />
         
-        <FormField
+        {/* <FormField
           control={form.control}
           name="teamId"
           render={({ field }) => (
@@ -175,7 +171,7 @@ export function CertificateForm() {
               <FormMessage className="text-red-600" />
             </FormItem>
           )}
-        /> 
+        />  */}
 
         <motion.div
           whileHover={{ scale: 1.02 }}
