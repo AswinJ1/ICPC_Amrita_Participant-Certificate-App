@@ -212,9 +212,9 @@ export default function ParticipantsTable() {
                       <span className="text-slate-900">
                         {p.teamName || "-"}
                       </span>
-                      <span className="text-xs text-slate-500">
+                      {/* <span className="text-xs text-slate-500">
                         Team ID: {p.teamId}
-                      </span>
+                      </span> */}
                     </div>
                   </td>
                   <td className="px-6 py-3 text-center">

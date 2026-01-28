@@ -23,27 +23,25 @@ export async function GET(request: NextRequest) {
     const downloadMap = new Map();
     interface DownloadCount {
         email: string;
-        teamId: string;
         count: number;
         createdAt: Date | null;
         updatedAt: Date | null;
     }
 
     downloadCounts.forEach((dc: DownloadCount) => {
-        const key: string = `${dc.email.toLowerCase()}-${dc.teamId}`;
+        const key: string = `${dc.email.toLowerCase()}`;
         downloadMap.set(key, dc);
     });
 
     // Merge data
     const participantsWithStatus = allParticipants.map((participant: any, index) => {
-      const key = `${participant.email?.toLowerCase()}-${participant.teamId}`;
+      const key = `${participant.email?.toLowerCase()}`;
       const downloadInfo = downloadMap.get(key);
       
       return {
         id: `participant-${index}`, // Create unique ID
         name: participant.name || '',
         email: participant.email || '',
-        teamId: participant.teamId?.toString() || '',
         teamName: participant.teamName || '',
         count: downloadInfo?.count || 0,
         createdAt: downloadInfo?.createdAt || null,

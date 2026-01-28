@@ -34,7 +34,8 @@ async function getParticipants(): Promise<any[]> {
   cacheTimestamp = now;
   
   console.log("Loaded participants:", participantsCache.length);
-  console.log("Sample participant:", participantsCache[0]); // Debug log
+  // console.log("Sample participant:", participantsCache[0]);
+  //  // Debug log
   
   return participantsCache;
 }

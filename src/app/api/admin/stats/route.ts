@@ -6,7 +6,7 @@ import * as XLSX from "xlsx"
 
 export async function GET(request: NextRequest) {
   try {
-    console.log("📊 Loading stats...");
+    // console.log("📊 Loading stats...");
     
     // Load all participants from CSV
     const filePath = path.resolve(process.cwd(), "data", "participants.csv");
@@ -14,13 +14,13 @@ export async function GET(request: NextRequest) {
     const workbook = XLSX.read(fileBuffer, { type: "string" });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const allParticipants = XLSX.utils.sheet_to_json(sheet);
-    console.log("📋 Total participants in CSV:", allParticipants.length);
+    // console.log("📋 Total participants in CSV:", allParticipants.length);
 
     // Get download counts
     const downloadCounts = await prisma.downloadCount.findMany({
       orderBy: { createdAt: 'desc' }
     });
-    console.log("💾 Download records found:", downloadCounts.length);
+    // console.log("💾 Download records found:", downloadCounts.length);
 
     // Calculate stats correctly
     const totalParticipants = allParticipants.length;
@@ -29,11 +29,10 @@ export async function GET(request: NextRequest) {
     const verifiedSet = new Set();
     interface DownloadCount {
       email: string;
-      teamId: string;
     }
     
     downloadCounts.forEach((dc: DownloadCount) => {
-      verifiedSet.add(`${dc.email}-${dc.teamId}`);
+      verifiedSet.add(`${dc.email}`);
     });
     
     const verifiedParticipants = verifiedSet.size; // Unique verified participants
@@ -41,7 +40,6 @@ export async function GET(request: NextRequest) {
     interface DownloadCountItem {
       count: number;
       email: string;
-      teamId: string;
       createdAt: Date;
     }
 
@@ -51,14 +49,14 @@ export async function GET(request: NextRequest) {
     const verificationRate = totalParticipants > 0 ? 
       Math.round((verifiedParticipants / totalParticipants) * 100) : 0;
 
-    console.log("📈 Stats calculated:", {
-      totalParticipants,
-      verifiedParticipants,
-      unverifiedParticipants,
-      totalDownloads,
-      verificationRate,
-      uniqueVerifiedCount: verifiedSet.size
-    });
+    // console.log("📈 Stats calculated:", {
+    //   totalParticipants,
+    //   verifiedParticipants,
+    //   unverifiedParticipants,
+    //   totalDownloads,
+    //   verificationRate,
+    //   uniqueVerifiedCount: verifiedSet.size
+    // });
 
     // Team-wise statistics - group by unique participants
     interface TeamStatsData {
@@ -72,18 +70,16 @@ export async function GET(request: NextRequest) {
 
     interface DownloadItem {
       email: string;
-      teamId: string;
       teamName: string;
       count: number;
     }
 
     interface ProcessedParticipant {
       email: string;
-      teamId: string;
     }
 
     downloadCounts.forEach((item: DownloadItem) => {
-      const participantKey: string = `${item.email}-${item.teamId}`;
+      const participantKey: string = `${item.email}`;
       const teamName: string = item.teamName || 'Unknown Team';
       
       if (!teamStats[teamName]) {
@@ -128,7 +124,6 @@ export async function GET(request: NextRequest) {
         createdAt: Date;
         count: number;
         email: string;
-        teamId: string;
       }
 
       const trendsMap: TrendsMap = downloadCounts.reduce((acc: TrendsMap, item: DownloadCountRecord) => {
@@ -138,7 +133,7 @@ export async function GET(request: NextRequest) {
         }
         acc[date].downloads += item.count;
         
-        const userKey: string = `${item.email}-${item.teamId}`;
+        const userKey: string = `${item.email}`;
         if (!acc[date].uniqueUsers.has(userKey)) {
           acc[date].uniqueUsers.add(userKey);
           acc[date].newUsers += 1;
@@ -186,12 +181,12 @@ export async function GET(request: NextRequest) {
       }
     };
 
-    console.log("✅ Final response:", {
-      total: responseData.totalParticipants,
-      verified: responseData.verifiedParticipants,
-      unverified: responseData.unverifiedParticipants,
-      rate: responseData.verificationRate
-    });
+    // console.log("✅ Final response:", {
+    //   total: responseData.totalParticipants,
+    //   verified: responseData.verifiedParticipants,
+    //   unverified: responseData.unverifiedParticipants,
+    //   rate: responseData.verificationRate
+    // });
 
     return NextResponse.json({
       success: true,
