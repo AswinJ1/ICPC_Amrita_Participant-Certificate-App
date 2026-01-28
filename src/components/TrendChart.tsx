@@ -159,14 +159,14 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
 
   if (!stats) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <div className="bg-white p-6  shadow-sm border border-slate-100">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-slate-900">
             Activity Trends
           </h2>
         </div>
         <div className="flex items-center justify-center h-40">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />
+          <div className="animate-spin  h-8 w-8 border-b-2 border-indigo-600" />
         </div>
       </div>
     )
@@ -174,7 +174,7 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
 
   if (!stats.dailyTrends || stats.dailyTrends.length === 0) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <div className="bg-white p-6 shadow-sm border border-slate-100">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-slate-900">
             Activity Trends
@@ -195,7 +195,7 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
   const filtered = getFilteredData()
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+    <div className="bg-white p-6  shadow-sm border border-slate-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
@@ -216,7 +216,7 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
               <button
                 key={f.value}
                 onClick={() => setDays(f.value)}
-                className={`px-3 py-1.5 rounded-full text-xs border transition ${
+                className={`px-3 py-1.5  text-xs border transition ${
                   days === f.value
                     ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
@@ -232,7 +232,7 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
       {/* Two small charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Downloads */}
-        <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+        <div className=" border border-slate-100 bg-slate-50/60 p-4">
           <div className="flex items-center justify-between mb-2">
             <div>
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
@@ -251,7 +251,7 @@ export default function TrendChart({ stats }: { stats: Stats | null }) {
         </div>
 
         {/* New Users */}
-        <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+        <div className="border border-slate-100 bg-slate-50/60 p-4">
           <div className="flex items-center justify-between mb-2">
             <div>
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">

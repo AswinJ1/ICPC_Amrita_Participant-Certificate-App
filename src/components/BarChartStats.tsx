@@ -71,7 +71,7 @@ export default function BarChartStats({ stats }: any) {
 
   if (!stats || !stats.teamDownloads) {
     return (
-      <div className="bg-white p-6 rounded-xl shadow-md border">
+      <div className="bg-white p-6 shadow-md border">
         <h2 className="text-xl font-semibold mb-4">Top Teams by Downloads</h2>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin h-10 w-10 border-2 border-gray-300 border-t-blue-500 rounded-full"></div>
@@ -81,7 +81,7 @@ export default function BarChartStats({ stats }: any) {
   }
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border">
+    <div className="bg-white p-6  shadow-lg border">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-gray-800">Team Performance</h2>

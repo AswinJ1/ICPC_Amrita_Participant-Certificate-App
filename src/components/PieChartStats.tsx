@@ -119,7 +119,7 @@ export default function PieChartStats({ stats }: { stats: Stats | null }) {
 
   if (!stats) {
     return (
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-xl shadow-lg border">
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6  shadow-lg border">
         <h2 className="text-xl font-bold mb-4 text-gray-800">
           Verification Status
         </h2>
@@ -131,7 +131,7 @@ export default function PieChartStats({ stats }: { stats: Stats | null }) {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border hover:shadow-xl transition-all duration-300">
+    <div className="bg-white  shadow-lg border hover:shadow-xl transition-all duration-300">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-gray-800 p-1">
           Verification Status
